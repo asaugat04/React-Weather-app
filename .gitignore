@@ -7,7 +7,6 @@ ssh.txt
 /node_modules
 /.pnp
 .pnp.js
-README.md
 
 # testing
 /coverage
