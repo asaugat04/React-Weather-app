@@ -6,31 +6,33 @@ import clearImage from "./../Images/clearWeather.png";
 import NormalImage from "./../Images/Normal.png";
 function WeatherData(props) {
   const [loading, setLoading] = useState(true);
-  const [countryData, setCountryData] = useState([...props.countryData]);
   const [fetchedData, SetFetchData] = useState({ hourly: [] });
-
-  useEffect(async () => {
-    setLoading(true);
-    setCountryData([...props.countryData]);
-    await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${countryData[0]}&lon=${countryData[1]}&units=metric&exclude=minutely&appid=9cf9f84e5556caab05f05ecd5a9ddd13`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        SetFetchData(res);
-        setLoading(false);
-      });
-  }, [props]);
+  console.log("prop outside: ", props);
+  useEffect(
+    async (prprops) => {
+      setLoading(true);
+      await fetch(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${props.countryData[0]}&lon=${props.countryData[1]}&units=metric&exclude=minutely&appid=9cf9f84e5556caab05f05ecd5a9ddd13`
+      )
+        .then((res) => res.json())
+        .then((res) => {
+          SetFetchData(res);
+          console.log("Fetch:", res);
+          console.log("cou", prprops);
+          console.log("prop:", props);
+        })
+        .then(() => setLoading(false));
+    },
+    [props]
+  );
 
   if (loading) {
     return <div className="WeatherDetails">Loading...</div>;
     //code which executes while data is rendering
   } else {
-    const response = fetchedData;
-    console.log(response);
     //data when loading completes
 
-    const hourly = response.hourly.map((HourlyData) => {
+    const hourly = fetchedData.hourly.map((HourlyData) => {
       const Image =
         HourlyData.weather[0].main.search(/clouds/i) !== -1
           ? cloudImage
@@ -87,13 +89,13 @@ function WeatherData(props) {
     //return this from the function
     return (
       <div className="WeatherDetails">
-        Current Weather: {response.current.temp}&deg;C
+        Current Weather: {fetchedData.current.temp}&deg;C
         <br />
-        Feels Like: {response.current.feels_like}&deg;C
+        Feels Like: {fetchedData.current.feels_like}&deg;C
         <br />
-        Pressure: {response.current.pressure}hpa
+        Pressure: {fetchedData.current.pressure}hpa
         <br />
-        UV Index: {response.current.uvi}
+        UV Index: {fetchedData.current.uvi}
         <br />
         Next few hours data:
         <br />
