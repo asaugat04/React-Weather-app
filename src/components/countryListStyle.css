@@ -24,11 +24,12 @@ div.focused {
   font-family: cursive;
   font-size: 1em;
   background-color: lightblue;
-  height: 50vh;
+
+  min-height: 50vh;
   line-break: loose;
   margin: 10px 15px 0 20px;
   border-radius: 5px;
-  padding: 9px;
+  padding: 1%;
 }
 
 .hourlyData {
