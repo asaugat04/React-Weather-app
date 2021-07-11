@@ -1,4 +1,5 @@
 import { Component, useEffect, useState } from "react";
+import loaderImg from "./../Images/loader.svg";
 import sunImage from "./../Images/Sunny.png";
 import RainImage from "./../Images/rainy.webp";
 import cloudImage from "./../Images/cloud.webp";
@@ -27,7 +28,14 @@ function WeatherData(props) {
   );
 
   if (loading) {
-    return <div className="WeatherDetails">Loading...</div>;
+    return (
+      <div className="WeatherDetails" style={{ textAlign: "center" }}>
+        <h1>LOADING...</h1>
+        <div className="loader">
+          <img src={loaderImg} />
+        </div>
+      </div>
+    );
     //code which executes while data is rendering
   } else {
     //data when loading completes
