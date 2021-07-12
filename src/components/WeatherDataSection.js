@@ -1,5 +1,6 @@
 import { Component, useEffect, useState } from "react";
 import loaderImg from "./../Images/loader.svg";
+import apiKey from "./../components/apikey";
 import sunImage from "./../Images/Sunny.png";
 import RainImage from "./../Images/rainy.webp";
 import cloudImage from "./../Images/cloud.webp";
@@ -13,7 +14,7 @@ function WeatherData(props) {
     async (prprops) => {
       setLoading(true);
       await fetch(
-        `https://api.openweathermap.org/data/2.5/onecall?lat=${props.countryData[0]}&lon=${props.countryData[1]}&units=metric&exclude=minutely&appid=9cf9f84e5556caab05f05ecd5a9ddd13`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${props.countryData[0]}&lon=${props.countryData[1]}&units=metric&exclude=minutely&appid=${apiKey}`
       )
         .then((res) => res.json())
         .then((res) => {
