@@ -1,4 +1,5 @@
 import style from "./countryListStyle.css";
+import apiKey from "./../components/apikey";
 import loaderImg from "./../Images/loader.svg";
 import sunImage from "./../Images/Sunny.png";
 import RainImage from "./../Images/rainy.webp";
@@ -27,7 +28,7 @@ function Country(props) {
   //Use this end
   useEffect(() => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${props.country.lat}&lon=${props.country.lon}&units=metric&exclude=minutely&appid=9cf9f84e5556caab05f05ecd5a9ddd13`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${props.country.lat}&lon=${props.country.lon}&units=metric&exclude=minutely&appid=${apiKey}`
     )
       .then((response) => response.json())
       .then((response) => {
