@@ -1,14 +1,26 @@
 import style from "./countryListStyle.css";
+import loaderImg from "./../Images/loader.svg";
 import sunImage from "./../Images/Sunny.png";
 import RainImage from "./../Images/rainy.webp";
 import cloudImage from "./../Images/cloud.webp";
 import clearImage from "./../Images/clearWeather.png";
 import NormalImage from "./../Images/Normal.png";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function Country(props) {
   const [WeatherData, setWeather] = useState({});
   const [isloading, ChangeLoadingState] = useState(true);
+
+  //This function shows the Full page loader while loading
+  function showLoader() {
+    let elem = document.createElement("div");
+    elem.className = "fullLoader";
+    let im = document.createElement("img");
+    im.setAttribute("src", loaderImg);
+    elem.appendChild(im);
+
+    document.getElementById("root").appendChild(elem);
+  }
 
   //Use this inside useEffect in last state()
   /*  */
@@ -23,13 +35,14 @@ function Country(props) {
       })
       .then(() => ChangeLoadingState(false));
   }, []);
-  if (isloading)
+  if (isloading) {
     return (
-      <div className="component" style={style}>
-        Loading...
+      <div className="component">
+        Loading..
+        <img src={loaderImg} />
       </div>
     );
-  else {
+  } else {
     const { current } = WeatherData;
     const Image =
       current.weather[0].main.search(/clouds/i) !== -1
